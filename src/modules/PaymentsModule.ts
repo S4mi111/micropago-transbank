@@ -5,15 +5,15 @@ import { TransbankAdapter } from "../infra/adapters/transbank/TransbankAdapter";
 import { CreatePaymentUseCase } from "../app/use-cases/CreatePaymentUseCase";
 
 @Module({
-    controllers:[PaymentController],
+    controllers: [PaymentController],
     providers: [
-        TransbankService,
-        TransbankAdapter,
-        {
-            provide: 'PaymentPort',
-            useExisting: TransbankAdapter
-        },
-        CreatePaymentUseCase,
-    ]
-})
-export class PaymentsModule {}
+      TransbankService,
+      {
+        provide: 'PaymentPort',
+        useClass: TransbankAdapter,
+      },
+      CreatePaymentUseCase,
+    ],
+  })
+  export class PaymentsModule {}
+  
